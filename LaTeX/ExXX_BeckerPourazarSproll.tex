@@ -6,13 +6,13 @@
 \usepackage[pdftex,hyperref,dvipsnames]{xcolor}		% Basic font coloring
 
 %% Basic packages:
-\usepackage{lipsum}		% For testing
+\usepackage{lipsum}	% For testing
 \usepackage{graphicx}
-\usepackage[inline]{enumitem}	% To be able to modify the numeration counter
 \usepackage{listings}
+\usepackage[inline]{enumitem}	% To be able to modify the numeration counter
 \usepackage{amsmath,amssymb,amstext,amsthm}
 %\usepackage{hyperref}
-%\usepackage{csquotes}		% Provides advanced facilities for inline and display quotations
+%\usepackage{csquotes}	% Provides advanced facilities for inline and display quotations
 
 %% (Pseudo-)Code:
 %\usepackage[lined,algonl,boxed]{algorithm2e}
@@ -35,7 +35,9 @@
 	\newpage
 
 	\exercise{1}{a}
-	\lipsum
+	\begin{adjustwidth}{24pt}{}
+		\lipsum
+	\end{adjustwidth}
 
 \end{document}
 
