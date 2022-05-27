@@ -1,23 +1,13 @@
-# TeX creation stuff
+# Removes unnecessary LaTeX stuff
+LaTeX/*.aux
+LaTeX/*.fdb_latexmk
 LaTeX/*.fls
 LaTeX/*.log
-LaTeX/*.fdb_latexmk
 LaTeX/*.synctex.gz
+LaTeX/*.out
 
-# IDE local project preference
-.idea
-.settings
-.project
-
-LaTeX/.idea
-LaTeX/.settings
-LaTeX/.project
-
-Impl/*/.idea
-Impl/*/.project
-Impl/*/.settings
-Impl/*/*/.idea
-Impl/*/*/.settings
-Impl/*/*/.project
-LaTeX/ExXX_BeckerPourazarSproll.aux
-LaTeX/ExXX_BeckerPourazarSproll.out
+# Removes local IDE project preferences
+*.idea
+*.settings
+*.project
+*.vscode

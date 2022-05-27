@@ -2,173 +2,224 @@
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern} % May enhance latin letter quality in PDF
-\usepackage[pdftex,hyperref,dvipsnames]{xcolor} % Font coloring
+\usepackage{lmodern}	% May enhance latin letter quality
+\usepackage[pdftex,hyperref,dvipsnames]{xcolor}		% Basic font coloring
 
-% Header package + overall page style change because of header:
-\usepackage{fancyhdr}
-\usepackage[headheight=1in]{geometry} % Page formatting to fit header
-
+%% Basic packages:
+\usepackage{lipsum}		% For testing
 \usepackage{graphicx}
-\usepackage{float} % Fixing the positioning of figures to section (with [H] option on the figure)
+\usepackage[inline]{enumitem}	% To be able to modify the numeration counter
 \usepackage{listings}
-\usepackage{hyperref}
 \usepackage{amsmath,amssymb,amstext,amsthm}
-%\usepackage{csquotes} % Provides advanced facilities for inline and display quotations
-% Pseudocode:
-%\usepackage{algorithm}
+%\usepackage{hyperref}
+%\usepackage{csquotes}		% Provides advanced facilities for inline and display quotations
+
+%% (Pseudo-)Code:
+%\usepackage[lined,algonl,boxed]{algorithm2e}
+%\usepackage[]{algorithm}
 %\usepackage{algpseudocode}
 
+%% Trees & Graphs:
+%\usepackage{tikz}
+%\usetikzlibrary{automata,positioning}
 
-%\def \courseShort {DSA}
-\def \courseFull {Datenstrukturen \& Algorithmen}
-\def \semester {Sommersemester 2022}
-%\def \semester {Wintersemester 2022}
-\def \groupNumber {Gruppe 06}
+\input{./src/HeaderAndFormatting.tex}
+\input{./src/CourseAndMemberEntities.tex}
+\input{./src/NewCommands.tex}
 
-\def \memberA {Anton Sproll}
-\def \memberB {Jannik Becker}
-\def \memberC {Omid Pourazar}
-%  ~ = Leerzeichen (wtf)
-\def \memberAMartikel {3592492}
-\def \memberBMartikel {3597837}
-\def \memberCMartikel {3608182}
-\def \memberAMail {st178033@stud.uni-stuttgart.de}
-\def \memberBMail {st177878@stud.uni-stuttgart.de}
-\def \memberCMail {st178028@stud.uni-stuttgart.de}
-
-
-%TODO TODO TODO TODO TODO TODO TODO
-\def \workSheetNr {XX}
-\def \dateOfFinishing {XX.XX.2022}
-%TODO TODO TODO TODO TODO TODO TODO
-
-
-% Print title page
-\title{
-	%Übungsblatt \\
-	\Huge{\workSheetNr} \\
-	\Large{\courseFull}
-}
-\author{
-	\textbf{\memberA} [\memberAMartikel ]~\textit{\memberAMail } \\
-	\textbf{\memberB} [\memberBMartikel ]~\textit{\memberBMail } \\
-	\textbf{\memberC} [\memberCMartikel ]~\textit{\memberCMail } \\ \\
-}
-\date{\dateOfFinishing}
-
-% Configuration of header
-\pagestyle{fancy}
-\fancyhf{}
-\rhead{}
-\rhead{
-	\memberA ~[\memberAMartikel] \\
-	\memberB ~[\memberBMartikel] \\
-	\memberC ~[\memberCMartikel]
-}
-\chead{
-	\groupNumber
-}
-\lhead{
-	\semester \\
-	\courseFull \\
-	Übungsblatt \workSheetNr
-}
-\cfoot{\thepage}
-
+%TODO
+\def \workSheet {Übungsblatt XX}
 
 \begin{document}
-
 	\maketitle
 	\newpage
 
-	\section*{Aufgabe X}
-	\subsection*{a)}
+	\exercise{1}{a}
+	\lipsum
 
 \end{document}
 
-%%
-% Text
-%%
+%% Text Formatting:
 
-%\textbf{text}
-%\textit{text}
-%\enquote{}
+%\textbf{text}			bold text
+%\textit{text}			italics text
+%\enquote{}				Does the "" thing the right/LaTeX way
+%\quad \qquad			For line additional spacing
 
 %\begin{enumerate}
-%\item
+%	\item
 %\end{enumerate}
 
-%\begin{itemize}
-%\item
-%\end{itemize}
+% \begin{itemize}
+% 	\item
+% \end{itemize}
 
 
-%%
-% External Files
-%%
+%% Figures (png, jpg, pdf,...) from external files:
 
-%\begin{figure} [H]
-%\includegraphics [width=1\textwidth]{./FOLDER/FILE.jpg}
-%\caption{Aufgabe X  y)}
-%\label{figureX}
-%\end{figure}
+% \begin{figure} [H]
+% 	\includegraphics [width=1\textwidth]{./figures/figure.*}
+% 	\caption{Figure caption}
+% 	\label{figureX}
+% \end{figure}
 
 
-%%
-% Code
-%%
+%% Source code form external files:
 
-%\lstinputlisting[language=java, firstline=37, lastline=45]{file} Für Codefile
+%\lstinputlisting[language=java, firstline=37, lastline=45]{./files/codefile.*}
 
-%
-%\begin{lstlisting} [frame=single]
-%for i:=maxint to 0 do
-%begin
-%{ do nothing }
-%end;
-%Write('Case insensitive ');
-%Write('Pascal keywords.');
-%\end{lstlisting}
 
-%%%
-% Pseudo Code
-%%%
+%% Source/ pseudo code within the document:
+
+% \begin{lstlisting} [frame=single]
+% 	for i:=maxInt to 0 do
+% 	begin
+% 		{do nothing}
+% 	end;
+% 	Write('Case insensitive ');
+% 	Write('Pascal keywords.');
+% \end{lstlisting}
+
+
+%% Pseudo Code:
 
 %\begin{algorithm}
-%\caption{Pseudo Code}
-%\begin{algorithmic} [1]
-%\end{algorithmic}
+%	\caption{Pseudo Code}
+%	\begin{algorithmic} [1]
+%	\end{algorithmic}
 %\end{algorithm}
 
 
-%%%
-% Tree ()
-%%%
+%% Simple colored AVL Tree:
 
-% \begin{figure} [H!]
-% 	\begin{tikzpicture}[nodes={draw, circle}, -]
-% 		\node{55}
-% 			child {node [red] {34}
-% 				child [missing]
-% 				child {node {37}
-% 					child {node {35}}
+% \begin{figure} [H]
+% 	\centering
+	
+% 	\begin{tikzpicture}[nodes={draw, circle}, level/.style ={sibling distance=60mm/#1}]
+% 		\node {$55_{0}$}
+% 			child {node {$34_{0}$}
+% 				child {node [blue] {$21_{0}$}
+% 					child [red] {node {$20_{0}$}}
+% 					child [blue] {node {$22_{0}$}}
+% 				}
+% 				child {node {$37_{1}$}
+% 					child {node {$35_{0}$}}
 % 					child [missing]
+% 				}
+% 			}
+% 			child {node {$70_{0}$}
+% 				child {node {$60_{-1}$}
+% 					child [missing]
+% 					child [green] {node {$64_{0}$}}
+% 				}
+% 				child {node {$77_{0}$}
+% 					child [missing]
+% 					child {node {$80_{0}$}}
+% 				}
+% 			};
+% 	\end{tikzpicture}
+	
+% 	\caption{\textbf{Der $AVL_2$-Baum nach Einfügen der 64}}
+% 	\label{tree-avl}
+% \end{figure}
+
+
+%% "Simple" 2-3-4 Tree:
+%TODO There have to be better ways doing this...
+
+% \begin{figure} [H]
+% 	\centering
+
+% 	\begin{tikzpicture}[nodes={draw,rectangle,rounded corners}, -]
+% 		\node [blue] {51}
+% 			child {node [blue] {26}
+% 				child {node {13 16}
+% 					child {node {7}}
+% 					child {node {14 15}}
+% 					child {node {19 }}
+% 				}
+% 				child [missing]
+% 				child [missing]
+% 				child {node {31}
+% 					child {node {28 29}}
+% 					child {node {44}}
 % 				}
 % 			}
 % 			child [missing]
 % 			child [missing]
-% 			child {node {70}
-% 				child {node {60}
-% 					child [missing]
-% 					child [missing]
+% 			child [missing]
+% 			child [missing]
+% 			child [missing]
+% 			child {node [blue] {73 87}
+% 				child {node [blue] {62}
+% 					child {node {56}}
+% 					child {node {64 72}}
 % 				}
-% 				child {node {77}
-% 					child [missing]
-% 					child {node {80}}
+% 				child [missing]
+% 				child [missing]
+% 				child [blue] {node {77 84}
+% 					child [blue] {node {74 75}}
+% 					child [green] {node {78 80}}
+% 					child [blue] {node {86}}
+% 				}
+% 				child [missing]
+% 				child [missing]
+% 				child {node {94}
+% 					child {node {91 92}}
+% 					child {node {96 100}}
 % 				}
 % 			};
 % 	\end{tikzpicture}
-% 	\caption{Tree}
-% 	\label{figure}
+
+% 	\caption{\textbf{A less nice 2-3-4 tree :/}}
+% 	\label{tree_2-3-4}
+% \end{figure}
+
+
+%% Read-Black-Tree:
+
+% \begin{figure} [H]
+% 	\centering
+
+% 	\begin{tikzpicture}[nodes={draw, circle, fill=gray}, level/.style ={sibling distance=80mm/#1}]
+% 		\node {55}
+% 			child {node [fill = pink] {26}
+% 				child {node {16}
+% 					child {node {13}
+% 						child {node [fill = pink] {7}}
+% 						child {node [fill = pink] {14}}
+% 					}
+% 					child {node {19}
+% 						child [missing]
+% 						child {node [fill=pink] {24}}
+% 					}
+% 				}
+% 				child {node {31}
+% 					child {node {28}}
+% 					child {node [fill = pink] {44}
+% 						child {node {40}}
+% 						child {node {46}}
+% 						}
+% 					}
+% 				}
+% 			child {node {70}
+% 				child {node {59}
+% 					child [missing]
+% 					child {node [fill = pink] {62}}
+% 				}
+% 				child {node [fill = pink] {87}
+% 					child {node {77}
+% 						child [missing]
+% 						child {node [fill = pink] {86}}
+% 					}
+% 					child {node {96}
+% 						child {node [fill = pink] {95}}
+% 						child {node [fill = pink] {97}}
+% 					}
+% 				}
+% 			};
+% 	\end{tikzpicture}
+
+% 	\caption{\textbf{A nice Red-Black-Tree}}
+% 	\label{tree-red-black}
 % \end{figure}
