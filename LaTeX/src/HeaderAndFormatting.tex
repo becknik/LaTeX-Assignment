@@ -1,21 +1,19 @@
 %% Refactored part handling the header and the overall page formatting specific stuff
 
 \usepackage{fancyhdr}	% Package for header
-\usepackage[a4paper,lmargin={1.5cm},rmargin={1.5cm},tmargin={3.5cm},bmargin = {2.5cm},headheight={1.5cm}]{geometry}	% page formatting - "headheight" change was necessary due to header
-\usepackage{changepage}	% For adjust the left and right side margin width
+\usepackage[a4paper,lmargin={1.5cm},rmargin={1.5cm},tmargin={2cm},bmargin = {1.5cm},headheight={1.5cm}, includeheadfoot]{geometry}	% Let's just don't move to KOMA :)
 \usepackage{float}	% Fixing the positioning of figures to section (with [H] option on the figure)
 
-\usepackage{scrlayer}	%TODO: Use this package instead of geometry?
 
 % Creating the header with entities from the ./CourseAndMemberEntities.tex file in the src directory:
 \title{
 	\Huge{\workSheet} \\
 	\Large{\course}
 }
-\author{
-	\textbf{\memberA} [\memberAMartikel ]~\textit{\memberAMail } \\
-	\textbf{\memberB} [\memberBMartikel ]~\textit{\memberBMail } \\
-	\textbf{\memberC} [\memberCMartikel ]~\textit{\memberCMail } \\ \\
+\author{ % TODO allign to the right edge with small margin
+	\textbf{\memberA} [\memberAMartikel]~\textit{\memberAMail} \\
+	\textbf{\memberB} [\memberBMartikel]~\textit{\memberBMail} \\
+	\textbf{\memberC} [\memberCMartikel]~\textit{\memberCMail} \\ \\
 }
 \date{\today}
 
@@ -32,8 +30,8 @@
 	\group
 }
 \rhead{
-	\memberA ~|~\memberAMartikel \\
-	\memberB ~|~\memberBMartikel \\
-	\memberC ~|~\memberCMartikel
+	\memberA ~|~MtNr. \memberAMartikel \\
+	\memberB ~|~MtNr. \memberBMartikel \\
+	\memberC ~|~MtNr. \memberCMartikel
 }
 \cfoot{\thepage}

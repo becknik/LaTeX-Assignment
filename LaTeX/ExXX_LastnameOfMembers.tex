@@ -1,45 +1,84 @@
 \documentclass[12pt]{scrartcl}
-\usepackage[resetfonts]{cmap}	% \usepackage[noTeX]{mmap} uniting cmap and utf-8 math, but somehow build fails
-\usepackage[utf8]{inputenc}		% another option: [latin9]
-\usepackage[T1]{fontenc}
+\usepackage[noTeX]{mmap} 		% unites {cmap} and utf-8 math copy; failing? \usepackage[resetfonts]{cmap}
+\usepackage[utf8]{inputenc}		% Another option: [latin9]
+\usepackage[nomath]{lmodern}	% Makes sure modern latin font family font is used, perhaps not needed on math mode; must be loaded before fontenc; [nomath] for compatibility with {mmap}
+\usepackage[T1]{fontenc}		% Sets the right font encoding
 \usepackage[ngerman]{babel}
-\usepackage{lmodern}	% May enhance latin letter quality
-\usepackage[pdftex,hyperref,dvipsnames]{xcolor}		% Basic font coloring
+%\usepackage[pdftex,hyperref,dvipsnames]{xcolor}		% For basic font coloring
+%\usepackage{changepage}		% For adjusting left and/or right side margins with \begin{adjustwidth}{24pt}{}
+%\usepackage[onehalfspacing]{setspace}
 
 %% Basic packages:
-\usepackage{lipsum}	% For testing
-\usepackage{graphicx}
+\usepackage{csquotes}				% For quoting with \eqnquote{} - Don't use '"' : "a -LaTeX-> ä
+\usepackage{graphicx} \graphicspath{figures/}	% For multiple figures in one frame: {subfig}
+%\usepackage{pdfpages}				% To including a whole pdf file with \includepdf[pages={4,9}]{./pdf/filename.pdf}
 \usepackage{listings}
-\usepackage[inline]{enumitem}	% To be able to modify the numeration counter
-\usepackage{amsmath,amssymb,amstext,amsthm}
-\usepackage{stmaryrd}	% For the lightning!
-%\usepackage{hyperref}
-\usepackage{csquotes}	% Quoting with \eqnquote{}, provides advanced facilities for inline and display quotations
+\usepackage[shortlabels]{enumitem}	% To be able to modify the numeration counter: \begin{enumerate}[i.]
+\usepackage[fleqn]{mathtools}		% For displaying mathematical constructs; loads amsmath, amstext etc. automatically; [fleqn]: "Position equations at a fixed indent from the left margin rather than centered in the text column."
+\usepackage{amssymb}				% Math symbols like $\mathbb{N,Z,R}$ etc.
+\usepackage{wasysym}				% TODO read the docs ? used below for boxes		
+%\usepackage{amsthm}				% If you want to flex on sb with \begin{lem}[(lemma name) text text]
 
-%% (Pseudo-)Code:
+
+%% Nice packages for useful symbols:
+\usepackage{lipsum}			% Lorem ipsum dolor sit...
+% To check your LaTeX ToDo-list: \check, {wasysymb} checked
+\usepackage{marvosym}		% To make use of the LIGHTNING symbol! / {stmaryrd} $\lightning$
+\usepackage{halloweenmath}	% If you want somebody to understand somethings not working: $\(big)skull$
+\usepackage{fontawesome5}	% To highlight something spicy \faPepperHot
+% Explore this one even further :)
+
+% Arrows and triangles: $\(R/r)ightarrow$ $\rightleftharpoons$ $\Leftrightarrow$ $\triangleright$ $\leadsto$ $\blacktriangleright$
+% Box stuff: $\boxtimes$ $\boxempty$ {wasysym} \CheckedBox \Square \XBox (uff)
+%\usepackage{upgreek}		% Nice looking Greek alphabet $\updelta$
+% To want to swag your PDA up: \textdollaroldstyle
+% For a AVL-tree rotation/ to display the state of thinking: $\circlearrowright$
+
+%% Nice packages for stupid symbols:
+% Just beautiful: $\ast$ $\bigstar$ $\bigvarstar$ $\divideontimes$ ({mathabx} $\blackdiamond$ $\Asterisk$ $\convolution$)
+% If you want to crucify your equation: \dag
+% If maths isn't scary enough: {halloweenmath} $\math(right/left/)ghost$ $\(big)skull$ $\math(right/left/)bat$ $\pumpkin$ $\(reverse/)mathcloud$
+%\usepackage{keystroke}		% To display you are lost in space or you are a troll: \Ctrl\Alt\keystroke{F4}\Enter
+% Signaling your tutor he/she should better stop reading: {marvosym} \Stopsign \Biohazard \Radioactivity \Laserbeam
+% Express your feelings: {wasysym} \frownie \smiley \sun or just
+%\usepackage{tikzsymbols} 	% \Cooley \Innocey \Cat \Annoey \Laughey \Neutrey \Sadey \Sey \Sleepey \Smiley \Tongey \Winkey \Xey
+%\usepackage{recycle}		% When your solutions are even trash to you: \recycle \Recycle \RECYCLE - or just use \Recycling
+
+
+
+%% Packages for (Pseudo-)Code:
 %\usepackage[lined,algonl,boxed]{algorithm2e}
 %\usepackage[]{algorithm}
 %\usepackage{algpseudocode}
 
-%% Trees & Graphs:
-%\usepackage{tikz}
+%% TiZ Packages: For painting trees, graphs etc.:
+\usepackage{tikz}
 %\usetikzlibrary{automata,positioning}
 
-\input{./src/HeaderAndFormatting.tex}
-\input{./src/CourseAndMemberEntities.tex}
-\input{./src/AdditionalCommands.tex}
 
-%TODO
-\def \workSheet {Übungsblatt XX}
+\input{./src/HeaderAndFormatting.tex}
+\input{./src/AdditionalCommands.tex}
+\input{./src/CourseAndMemberEntities.tex}
+\def \workSheet {Übungsblatt XX} %TODO TODO TODO TODO TODO TODO TODO
+
+\usepackage[ % Sets the pdf propertys - TODO Refactor?
+	pdftitle={\semester~\course~\workSheet},
+	pdfauthor={\memberA, \memberB, \memberC},
+	pdfsubject={\course},
+	pdfkeywords={\semester, \courseShort, \course, \group, \workSheet},
+	unicode
+]{hyperref}
+
 
 \begin{document}
 	\maketitle
-	\newpage
-
+	\newpage % That's ok I guess
+	
 	\exercise{1}{a}
 	\lipsum
 
 \end{document}
+
 
 %% Text Formatting:
 
