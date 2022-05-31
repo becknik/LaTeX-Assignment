@@ -1,31 +1,24 @@
-\documentclass[12pt]{scrartcl}
-\usepackage[noTeX]{mmap} 		% unites {cmap} and utf-8 math copy; failing? \usepackage[resetfonts]{cmap}
-\usepackage[utf8]{inputenc}		% Another option: [latin9]
-\usepackage[nomath]{lmodern}	% Makes sure modern latin font family font is used, perhaps not needed on math mode; must be loaded before fontenc; [nomath] for compatibility with {mmap}
-\usepackage[T1]{fontenc}		% Sets the right font encoding
-\usepackage[ngerman]{babel}
-%\usepackage[pdftex,hyperref,dvipsnames]{xcolor}		% For basic font coloring
-%\usepackage{changepage}		% For adjusting left and/or right side margins with \begin{adjustwidth}{24pt}{}
-%\usepackage[onehalfspacing]{setspace}
+\input{./src/basic_packages.tex}
+\input{./src/commands.tex}
+\input{./src/entities.tex}
+\def \workSheet {Übungsblatt XX} %TODO
+\input{./src/header.tex}
 
-%% Basic packages:
-\usepackage{csquotes}				% For quoting with \eqnquote{} - Don't use '"' : "a -LaTeX-> ä
-\usepackage{graphicx} \graphicspath{figures/}	% For multiple figures in one frame: {subfig}
-%\usepackage{pdfpages}				% To including a whole pdf file with \includepdf[pages={4,9}]{./pdf/filename.pdf}
-\usepackage{listings}
-\usepackage[shortlabels]{enumitem}	% To be able to modify the numeration counter: \begin{enumerate}[i.]
-\usepackage[fleqn]{mathtools}		% For displaying mathematical constructs; loads amsmath, amstext etc. automatically; [fleqn]: "Position equations at a fixed indent from the left margin rather than centered in the text column."
-\usepackage{amssymb}				% Math symbols like $\mathbb{N,Z,R}$ etc.
-\usepackage{wasysym}				% TODO read the docs ? used below for boxes		
-%\usepackage{amsthm}				% If you want to flex on sb with \begin{lem}[(lemma name) text text]
+\begin{document}
+	\maketitle
+	\newpage % That's ok
+	
+	\exercise{1}{a}
+	\lipsum
+
+\end{document}
 
 
 %% Nice packages for useful symbols:
-\usepackage{lipsum}			% Lorem ipsum dolor sit...
 % To check your LaTeX ToDo-list: \check, {wasysymb} checked
-\usepackage{marvosym}		% To make use of the LIGHTNING symbol! / {stmaryrd} $\lightning$
-\usepackage{halloweenmath}	% If you want somebody to understand somethings not working: $\(big)skull$
-\usepackage{fontawesome5}	% To highlight something spicy \faPepperHot
+% \usepackage{marvosym}		% To make use of the LIGHTNING symbol! / {stmaryrd} $\lightning$
+% \usepackage{halloweenmath}	% If you want somebody to understand somethings not working: $\(big)skull$
+% \usepackage{fontawesome5}	% To highlight something spicy \faPepperHot
 % Explore this one even further :)
 
 % Arrows and triangles: $\(R/r)ightarrow$ $\rightleftharpoons$ $\Leftrightarrow$ $\triangleright$ $\leadsto$ $\blacktriangleright$
@@ -44,40 +37,16 @@
 %\usepackage{tikzsymbols} 	% \Cooley \Innocey \Cat \Annoey \Laughey \Neutrey \Sadey \Sey \Sleepey \Smiley \Tongey \Winkey \Xey
 %\usepackage{recycle}		% When your solutions are even trash to you: \recycle \Recycle \RECYCLE - or just use \Recycling
 
-
+%\usepackage{amsthm}							% If you want to flex on someone with \begin{lem}[(lemma name) Lemma stuff] \end{lemma}
 
 %% Packages for (Pseudo-)Code:
 %\usepackage[lined,algonl,boxed]{algorithm2e}
 %\usepackage[]{algorithm}
 %\usepackage{algpseudocode}
 
-%% TiZ Packages: For painting trees, graphs etc.:
-\usepackage{tikz}
+%% TiZ Libraries:
 %\usetikzlibrary{automata,positioning}
 
-
-\input{./src/HeaderAndFormatting.tex}
-\input{./src/AdditionalCommands.tex}
-\input{./src/CourseAndMemberEntities.tex}
-\def \workSheet {Übungsblatt XX} %TODO TODO TODO TODO TODO TODO TODO
-
-\usepackage[ % Sets the pdf propertys - TODO Refactor?
-	pdftitle={\semester~\course~\workSheet},
-	pdfauthor={\memberA, \memberB, \memberC},
-	pdfsubject={\course},
-	pdfkeywords={\semester, \courseShort, \course, \group, \workSheet},
-	unicode
-]{hyperref}
-
-
-\begin{document}
-	\maketitle
-	\newpage % That's ok I guess
-	
-	\exercise{1}{a}
-	\lipsum
-
-\end{document}
 
 
 %% Text Formatting:

@@ -1,0 +1,38 @@
+%% Sets up the header and cover sheet formatting with entities from the ./entities.tex file in the src directory.
+\title{
+	\Huge{\workSheet} \\
+	\Large{\course}
+}
+\author{ % TODO allign to the right edge with small margin
+	\textbf{\memberA} [\memberAMartikel]~\textit{\memberAMail} \\
+	\textbf{\memberB} [\memberBMartikel]~\textit{\memberBMail} \\
+	\textbf{\memberC} [\memberCMartikel]~\textit{\memberCMail} \\ \\
+}
+\date{\today}
+
+% Configuration of the header starts here
+\pagestyle{fancy}
+\fancyhf{}
+
+\lhead{
+	\semester \\
+	\courseShort \\
+	\workSheet
+}
+\chead{\group}
+\rhead{
+	\memberA ~|~MtNr. \memberAMartikel \\
+	\memberB ~|~MtNr. \memberBMartikel \\
+	\memberC ~|~MtNr. \memberCMartikel
+}
+\cfoot{\thepage}
+
+
+%% pdf internal (useless) properties, which as I think fit in here very good
+\usepackage[
+	pdftitle={\semester~\course~\workSheet},
+	pdfauthor={\memberA, \memberB, \memberC},
+	pdfsubject={\course},
+	pdfkeywords={\semester, \courseShort, \course, \group, \workSheet},
+	unicode
+]{hyperref}

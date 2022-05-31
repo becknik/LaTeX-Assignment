@@ -1,0 +1,36 @@
+%% Formatting specific packages:
+\documentclass[11pt]{scrartcl}
+\usepackage{fancyhdr}	                                    % Package for printing the header
+\usepackage[
+    a4paper,
+    lmargin={1.5cm},
+    rmargin={1.5cm},
+    tmargin={2cm},
+    bmargin = {1.5cm},
+    headheight={1.5cm},
+    includeheadfoot
+]{geometry}	                                                
+\usepackage{float}                                          % Fixes the positioning of figures to (sub)section (with [H] option on the figure)
+
+\usepackage[noTeX]{mmap} 									% unites {cmap} and utf-8 math copy; failing? \usepackage[resetfonts]{cmap}
+\usepackage[utf8]{inputenc}									% Another option: [latin9]
+\usepackage[nomath]{lmodern}								% Makes sure modern latin font family font is used, perhaps not needed on math mode; must be loaded before fontenc; [nomath] for compatibility with {mmap}
+\usepackage[T1]{fontenc}									% Sets the right font encoding
+%\usepackage[onehalfspacing]{setspace}
+\usepackage[ngerman]{babel}
+\usepackage[fixpdftex,hyperref,table,dvipsnames]{xcolor}	% For font coloring of text \textcolor{red}{text}, dye whole text blocks with \color{red} or \colorbox[red]{text in a box}
+\usepackage{changepage}									    % For adjusting left and/or right side margins with \begin{adjustwidth}{24pt}{} ... \end{adjustwidth}
+
+%% Basic packages:
+\usepackage{csquotes}							% For quoting with \eqnquote{} - Don't use '"' : "a -LaTeX-> ä
+\usepackage{graphicx} \graphicspath{figures/}	% Alternative: for multiple figures in one frame use package {subfig}
+\usepackage{pdfpages}							% To including a whole pdf file with \includepdf[pages={4,9}]{./pdf/filename.pdf} (who does that?)
+\usepackage{listings}
+\usepackage[shortlabels]{enumitem}				% Modify the numeration counter: \begin{enumerate}[i.] \item \end{enumerate}
+\usepackage[fleqn]{mathtools}					% Prints mathematical constructs; loads amsmath, amstext etc. automatically; [fleqn]: "Position equations at a fixed indent from the left margin rather than centered in the text column."
+\usepackage{amssymb}							% Math symbols like $\mathbb{N,Z,R}$ etc.
+\usepackage{wasysym}							% TODO read the docs ? used below for boxes
+\usepackage{tikz}                               % I'd say TikZ is a basic package
+
+%% Testing:
+\usepackage{lipsum}	    % Lorem ipsum dolor sit...
