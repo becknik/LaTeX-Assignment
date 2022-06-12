@@ -1,4 +1,4 @@
-use std::{io::{stdin, Read, Error}, fs::{File, self}, path::{PathBuf}, ops::{Add}};
+use std::{io::{stdin, Read, Error}, fs::{File, self}, path::{PathBuf}, ops::{Add, Deref, Index}};
 
 fn main() {
     let path_project = get_proj_root();
@@ -9,7 +9,7 @@ fn main() {
     let mut entities_file: File = File::open(path_entities).expect("Entities file not found.");
     entities_file.read_to_string(&mut entities).expect("Could not read LaTeX entities file.");
     drop(entities_file);
-    let entities_default: String = entities.clone();
+    let mut entities_default: String = entities.clone();
     
     let mut header: String = String::new();
     let mut header_file = File::open(path_header).expect("Latex header.tex file not found in \"LaTeX\"src\" folder.");
@@ -64,16 +64,16 @@ fn main() {
     let mut entities_default_iter = entities_default.lines();
     
     loop {
-        let default_modified: (Option<&str>, Option<&str>) = (entities_default_iter.next(), entities_modified_iter.next());
-        match default_modified.0 { // To stop when there is no line left in Lines iterator
+        let default_and_modified: (Option<&str>, Option<&str>) = (entities_default_iter.next(), entities_modified_iter.next());
+        match default_and_modified.0 { // To stop when there is no line left in Lines iterator
             Some(default_line) => {
-                if default_line.eq(default_modified.1.unwrap()) {
+                if default_line.eq(default_and_modified.1.unwrap()) && default_line.contains("member") {
                     let line:Option<usize> = default_line.find("\\def");
                     match line { // To make sure identifiers name parsing takes place on identifier lines only
                         Some(def_index) => { 
                             let identifier:&str = default_line.get(def_index+5..default_line.find("{").unwrap()-1).unwrap();
-                            default_identifiers.push(identifier);
-                        }
+                            default_identifiers.push(identifier)
+                        },
                         None => ()
                     }
                 }
@@ -82,7 +82,38 @@ fn main() {
         }
     }
 
-    println!("{:?}", default_identifiers); // nicht member entitäten rausfiltern, (reuseability), auskommentieren
+    //println!("{:?}", &default_identifiers);
+
+    let mut add_procent:Vec<usize> = Vec::new();
+    let mut remove_procent:Vec<usize> = Vec::new();
+    
+    let mut header_lines = header.lines();
+    println!("{}", header_lines.next().unwrap());
+
+    for line in header.lines() {
+        println!("{}", &line);
+        for entity in &default_identifiers {
+            if line.contains(*entity) && !line.contains("%") && !line.contains("pdftitle") {
+                add_procent.push(line.find("\\").unwrap());
+            } else if line.contains(*entity) && line.contains("%") && line.find("%").unwrap() > 4 {
+                remove_procent.push(line.find("%").unwrap())
+            }
+        }
+    }
+
+    for index in add_procent {
+        header.insert(index, '%');
+    }
+        // let author_patter = format!("textbf({})", &entity);
+        // header.insert(header.find(&entity).unwrap(), '%');
+        // let header_pattern = format!("{} ~|~MtNr.)", &entity);
+        // header.insert(header.find(&header_pattern).unwrap(), '%');
+        // let hyperref_pattern = format!("{},)", &entity);
+        // header.replace(&hyperref_pattern, "");
+
+    //println!("{}", header);
+
+    // nicht member entitäten rausfiltern, (reuseability), auskommentieren
 
     // let mut header_iter = header.lines();
     // loop {
