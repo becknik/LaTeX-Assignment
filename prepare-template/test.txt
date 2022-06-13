@@ -1,9 +1,11 @@
 Sommersemester 2022
-Datenstrukturen und Algorithmen 2
-DSASA
+Datenstrukturen und Algorithmen
+DSA
 Gruppe 06
-Jannik Becker, Omid Pourazar
+Jannik Becker, Omid Pourazar, Anton Sproll
 3597837
-jannikb@posteo.de
-1234567
-omid@basball-stuttgart.de
+st177878@stud.uni-stuttgart.de
+3608182
+st178028@stud.uni-stuttgart.de
+3592492
+st178033@stud.uni-stuttgart.de

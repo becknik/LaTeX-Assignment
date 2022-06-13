@@ -1,4 +1,4 @@
-use std::{io::{stdin, Read, Error}, fs::{File, self}, path::{PathBuf}, ops::{Add, Deref, Index}};
+use std::{io::{stdin, Read, Error, Write}, fs::{File, self}, path::{PathBuf}, ops::{Add}};
 
 fn main() {
     let path_project = get_proj_root();
@@ -6,20 +6,18 @@ fn main() {
     let path_header = path_project.join("LaTeX").join("src").join("header.tex");
 
     let mut entities: String = String::new();
-    let mut entities_file: File = File::open(path_entities).expect("Entities file not found.");
+    let mut entities_file: File = File::open(&path_entities).expect("Entities file not found.");
     entities_file.read_to_string(&mut entities).expect("Could not read LaTeX entities file.");
-    drop(entities_file);
-    let mut entities_default: String = entities.clone();
-    
+
     let mut header: String = String::new();
-    let mut header_file = File::open(path_header).expect("Latex header.tex file not found in \"LaTeX\"src\" folder.");
+    let mut header_file = File::open(&path_header).expect("Latex header.tex file not found in \"LaTeX\"src\" folder.");
     header_file.read_to_string(&mut header).expect("Could not read LaTeX entities file.");
-    drop(header_file);
+
 
     println!("This is a simple utility to prepare this repository to be used as a copy-past template for your submissions.");
     println!("Starting cleaning up repo files...");
 
-    //remove_unnecessary_repo_folders(&path_project); TODO
+    //remove_unnecessary_repo_folders(&path_project);
 
     print!("\n");
     for _i in 0..10 {
@@ -27,111 +25,94 @@ fn main() {
     }
     println!("\nLet's just start setting up the template according to your needs. If you want to do this manually consider aborting with 'Ctrl+c'");
     println!("Your input of the following lines ist print into the correct tex files.\nTheoretically you can rerun this program to fix typos or something, but nevertheless be attentive :)\n\n");
-    
+
     let messages_and_tex_identifiers: Vec<(&str, &str)> = vec![
-        ("Please enter semester season your course takes place: ", "\\semester"),
-        ("Please enter the full length name of your course:", "\\course"),
-        ("Please enter your courses name abbreviation: ", "\\courseShort"),
-        ("Please enter your group's number (e.g. \"Group 42\"): ", "\\group")
+        ("Please enter semester season your course takes place: ", "semester"),
+        ("Please enter the full length name of your course:", "course"),
+        ("Please enter your courses name abbreviation: ", "courseShort"),
+        ("Please enter your group's number (e.g. \"Group 42\"): ", "group")
     ];
 
-    for message_identifier in messages_and_tex_identifiers {
-        replace_init_entity(&mut entities, message_identifier.1, message_identifier.0)
+    for message_and_identifier in messages_and_tex_identifiers {
+        let user_input: String = get_user_input(message_and_identifier.1, message_and_identifier.0);
+        replace_init_entity(&mut entities, message_and_identifier.1, &user_input);
     }
 
     let group_members = get_user_input("member", "Please enter the names of your groups members, all separated with commas: ");
-    let group_iter = group_members.split(",");
-    let mut counter:u32 = 10; // For exotic way of int -> char conversion: counter representing hexadecimal value :D
 
-    for member_name in group_iter {
+    let mut modified_entities: Vec<String> = Vec::new();
+    let mut unnecessary_entities: Vec<String> = Vec::new();
+
+    let mut group_iter = group_members.split(",");
+    for counter in 10..16 { // For exotic way of int -> char conversion: counter representing hexadecimal value :D
         let member_char: char = char::from_digit(counter, 16).unwrap();
         let member_char_uppercase = member_char.to_uppercase().to_string();
+        let member_identifier = String::from("member").add(&member_char_uppercase); // Should contain \memberA..F
 
-        let member_name_identifier = String::from("\\member").add(&member_char_uppercase);
-        // TODO Operation die im header automatisch Auskommentiert
-        replace_init_entity_with_value(&mut entities, &member_name_identifier.clone(), member_name);
+        let next_group_member: Option<&str> = group_iter.next();
+        if next_group_member.is_some() { // Setting the entity values by user input
+            let current_member_name: &str = next_group_member.unwrap();
+            replace_init_entity(&mut entities, &member_identifier.clone(), current_member_name);
+            let member_id_identifier: String = member_identifier.clone() + "Martricle";
+            let current_member_id: String = get_user_input(&member_id_identifier, &format!("Please enter {}'s marticle number: ", current_member_name));
+            replace_init_entity(&mut entities, &member_id_identifier, &current_member_id);
+            let member_mail_identifier: String = member_identifier.clone() + "Mail";
+            let current_member_mail: String = get_user_input(&member_mail_identifier, &format!("Please enter {}'s student mail: ", current_member_name));
+            replace_init_entity(&mut entities, &member_mail_identifier, &current_member_mail);
 
-        let member_id_identifier = member_name_identifier.clone() + "Martricle";
-        replace_init_entity(&mut entities, &member_id_identifier, format!("Please enter {}'s marticle number: ", member_name).as_str());
-        let member_mail_identifier = member_name_identifier.clone() + "Mail";
-        replace_init_entity(&mut entities, &member_mail_identifier, format!("Please enter {}'s student mail: ", member_name).as_str());
-
-        counter += 1;
-    }
-    
-    let mut default_identifiers: Vec<&str> = Vec::new();
-    let mut entities_modified_iter = entities.lines();
-    let mut entities_default_iter = entities_default.lines();
-    
-    loop {
-        let default_and_modified: (Option<&str>, Option<&str>) = (entities_default_iter.next(), entities_modified_iter.next());
-        match default_and_modified.0 { // To stop when there is no line left in Lines iterator
-            Some(default_line) => {
-                if default_line.eq(default_and_modified.1.unwrap()) && default_line.contains("member") {
-                    let line:Option<usize> = default_line.find("\\def");
-                    match line { // To make sure identifiers name parsing takes place on identifier lines only
-                        Some(def_index) => { 
-                            let identifier:&str = default_line.get(def_index+5..default_line.find("{").unwrap()-1).unwrap();
-                            default_identifiers.push(identifier)
-                        },
-                        None => ()
-                    }
-                }
-            },
-            None => break
+            modified_entities.push(member_identifier.clone()); // For proving the entities are not commented out in the header file
+        }
+        else {
+            unnecessary_entities.push(member_identifier)
         }
     }
 
-    //println!("{:?}", &default_identifiers);
+    let mut add_percent_in_header:Vec<usize> = Vec::new();
+    let mut remove_percent_in_header:Vec<usize> = Vec::new();
 
-    let mut add_procent:Vec<usize> = Vec::new();
-    let mut remove_procent:Vec<usize> = Vec::new();
-    
-    let mut header_lines = header.lines();
-    println!("{}", header_lines.next().unwrap());
+    let mut header_iter = header.lines();
+    while let Some(line) = header_iter.next() {
+        if line.contains("pdfauthor") { // TODO fix this, adjust header size according to member count, sort members lastnames alphabetically, add better fill-in pattern in get-user-name method, remove line breaks in tex header
+            continue;
+        }
 
-    for line in header.lines() {
-        println!("{}", &line);
-        for entity in &default_identifiers {
-            if line.contains(*entity) && !line.contains("%") && !line.contains("pdftitle") {
-                add_procent.push(line.find("\\").unwrap());
-            } else if line.contains(*entity) && line.contains("%") && line.find("%").unwrap() > 4 {
-                remove_procent.push(line.find("%").unwrap())
+        let beginning_of_line: Option<&str> = line.get(0..10);
+
+        for entity in &modified_entities {
+            if line.contains(entity) && beginning_of_line.unwrap().contains("%") {
+                let total_index: usize = header.find(&line).unwrap() + line.find("%").unwrap();
+                remove_percent_in_header.push(total_index);
+            }
+        }
+        for entity in &unnecessary_entities {
+            if line.contains(entity) && !beginning_of_line.unwrap().contains("%") {
+                let total_index: usize = header.find(&line).unwrap() + line.find("\\").unwrap();
+                add_percent_in_header.push(total_index);
             }
         }
     }
 
-    for index in add_procent {
-        header.insert(index, '%');
+    let mut iter = add_percent_in_header.iter();
+    let mut shifting_counter: usize = 0;
+    while let Some(index) = iter.next() {
+        header.insert(*index + shifting_counter, '%');
+        shifting_counter += 1; // Fix adding a char shift
     }
-        // let author_patter = format!("textbf({})", &entity);
-        // header.insert(header.find(&entity).unwrap(), '%');
-        // let header_pattern = format!("{} ~|~MtNr.)", &entity);
-        // header.insert(header.find(&header_pattern).unwrap(), '%');
-        // let hyperref_pattern = format!("{},)", &entity);
-        // header.replace(&hyperref_pattern, "");
+    shifting_counter = 0;
+    iter = remove_percent_in_header.iter();
+    while let Some(index) = iter.next() {
+        header.remove(index - shifting_counter);
+        shifting_counter += 1;
+    }
 
-    //println!("{}", header);
+    let mut f = std::fs::OpenOptions::new().write(true).truncate(true).open(path_header.as_path()).unwrap();
+    let result_0 = f.write(&header.as_bytes());
+    f = std::fs::OpenOptions::new().write(true).truncate(true).open(path_entities.as_path()).unwrap();
+    let result_1 = f.write(&entities.as_bytes());
 
-    // nicht member entitäten rausfiltern, (reuseability), auskommentieren
-
-    // let mut header_iter = header.lines();
-    // loop {
-    //     match header_iter.next() {
-    //         Some(line) => {
-    //             for identifier in default_identifiers {
-    //                 if (line.contains(identifier)) {
-    //                     //
-    //                 }
-    //             }
-    //         }
-    //         None => break
-    //     }
-    // }
-    
-
-    // println!("{}", entities);
-    // println!("{}", header);
+    if result_0.is_ok() && result_1.is_ok() {
+        println!("We did it!")
+    }
 }
 
 // Returns the user input to the provided message by obeying the formatting rules defined for the parameterized latex identifier
@@ -139,9 +120,6 @@ fn get_user_input(identifier: &str, message: &str) -> String {
 
     let mut user_input: String = String::new();
     let mut identifier_semantic: String = identifier.to_owned();
-    if identifier_semantic.contains("\\") {
-        identifier_semantic = identifier_semantic.get(1..identifier_semantic.len()).unwrap().to_string();
-    }
     for c in 'A'..'F' {
         if identifier_semantic.contains(c) && 6 < identifier_semantic.len() {
             identifier_semantic = identifier_semantic.get(7..identifier_semantic.len()).unwrap().to_string();
@@ -168,7 +146,7 @@ fn get_user_input(identifier: &str, message: &str) -> String {
                 } else if user_input.is_empty() {
                     eprintln!("The email field can't be left blank.")
                 } else {
-                    break;
+                    break
                 }
             }
             "Martricle" => {
@@ -176,13 +154,13 @@ fn get_user_input(identifier: &str, message: &str) -> String {
                 if user_input.trim().len() == 7 {
                     break
                 } else {
-                    eprintln!("Seems like the entered student ID's length is not 8 and therefore not valid.")
+                    eprintln!("Seems like the entered student ID's length is not 7 and therefore not valid.")
                 }
             }
             "courseNameShort" => {
                 already_tested = true;
                 if user_input.is_empty() {
-                    eprintln!("Leaving the short course name empty is not allowed (HAHA!).");   
+                    eprintln!("Leaving the short course name empty is not allowed (HAHA!).");
                 }
                 break;
             }
@@ -207,22 +185,8 @@ fn get_user_input(identifier: &str, message: &str) -> String {
     return user_input;
 }
 
-// Replaces the entity value of the specified identifier in the entities.tex file with a user-entered value. The message specifier is for explanation for this user entered value.
-fn replace_init_entity(entities_tex_file: &mut String, identifier: &str, message: &str) {
-    let user_value = get_user_input(&identifier, message); // New user modified entity init gets saved in 'value'
-    let start_index_identifier = entities_tex_file.find(identifier).expect(format!("Something went wrong locating {}'s declaration in \"LaTeX/src/entities.tex\" string.", identifier).as_str());
-    let mut init_entity_slice: &str = entities_tex_file.get(start_index_identifier..entities_tex_file.len()).unwrap();
-
-    let mut start_index = init_entity_slice.find("{").expect(format!("Error ocurred locating the start-position of the default initialization by searching for \"{{\" in for current entity trimmed entities.tex: {}", init_entity_slice).as_str());
-    start_index += 1; // To not cut the '{'
-    let end_index = init_entity_slice.find("}").expect(format!("Error ocurred locating the end-position of the default initialization by searching for \"}}\" in for current entity trimmed entities.tex: {}", init_entity_slice).as_str());
-
-    init_entity_slice = init_entity_slice.get(start_index..end_index).expect(format!("Error ocurred trimming the slice to fit the initialization value - start index: {}, end index: {}, entity: {}",start_index, end_index, init_entity_slice).as_str());
-    *entities_tex_file = entities_tex_file.replace(init_entity_slice,&user_value.trim());
-}
-
 // Replaces the entity value of the specified identifier in the entities.tex file with the parameterized value.
-fn replace_init_entity_with_value(entities_tex_file: &mut String, entity: &str, value: &str) { // I don't knooow how to do this better :(
+fn replace_init_entity(entities_tex_file: &mut String, entity: &str, value: &str) { // I don't knooow how to do this better :(
     let start_index_identifier = entities_tex_file.find(entity).expect(format!("Something went wrong locating {}'s declaration in \"LaTeX/src/entities.tex\" string.", entity).as_str());
     let mut init_entity_slice: &str = entities_tex_file.get(start_index_identifier..entities_tex_file.len()).unwrap();
 
@@ -237,7 +201,7 @@ fn replace_init_entity_with_value(entities_tex_file: &mut String, entity: &str, 
 // For running this program in the cargo folder while developing
 fn get_proj_root() -> PathBuf {
     let mut path_exec = std::env::current_exe().expect("Failed to read execution path.");
-    
+
     while !path_exec.ends_with("Course_ExXX_Template") { // Navigates to the repos root when starting from cargo build directory
         path_exec = path_exec.parent().expect("Failed to determine the repos root.").to_path_buf();
     }
