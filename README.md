@@ -3,26 +3,19 @@
 A template made for simplifying your work on LaTeX CS submissions.
 
 Features:
-- All necessary and useful packages
-- A basic and customizable formatting scheme
-- A copy-pastable example catalogue for many packages and data structures (or some at least)
+- Some useful packages (for correct formatting, fonts, TikZ, maths-environment etc) are enabled and set-up correctly by default
+- A basic and customizable TeX entity formatting scheme to fast adjustments on all the variables displayed in the document
+- (In work) A program for setting up the entities in a plain, debloated new template folder, named by your input or optionally a config file
+- (In work) A catalogue with previews and copy-past-able code snippets for many basic packages and data structure examples (tree types, graphs, arrays etc.)
 
 ---
 ## **How to use?**
-1. Clone this repo by
+1. Clone this repo or simply download the code with:
 
-- ... using [GitHub Desktop](https://https://desktop.github.com/) or your favorite IDE
-- ...using git bash or SCM entering:
+- [GitHub Desktop](https://https://desktop.github.com/) or your favorite IDE
+- git bash or SCM: `git clone --depth=1 https://github.com/jarnnk/Course-ExXX-Template.git`
+- Making use of the GitHub *Code* dropdown menu + Extraction
 
-`git clone --depth=1 https://github.com/jarnnk/Course-ExXX-Template.git`
+2. Execute a fitting *prepare-template* script or program in a shell of your trust, optionally specifying a modified config file using the syntax of [this example file](./example-config.cfg).
 
-- ... just downloading the code via the GitHub *Code* dropdown menu
-
-2. Execute the fitting *prepare-template.** script/program
-
-3. Adjust the the variables in this [file](./LaTeX/src/entities.tex) according to your needs
-
-4. Copy-paste the repo contents in your submission folders or already initialized git repositories
-
----
-## **How to contribute?**
+3. Done :)
