@@ -11,3 +11,4 @@ LaTeX/*.out
 *.settings
 *.project
 *.vscode
+*.iml
