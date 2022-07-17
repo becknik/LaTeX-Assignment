@@ -9,10 +9,10 @@
     bmargin = {1.5cm},
     headheight={1.5cm},
     includeheadfoot
-]{geometry}	                                                
+]{geometry}
 \usepackage{float}                                          % Fixes the positioning of figures to (sub)section (with [H] option on the figure)
 
-\usepackage[noTeX]{mmap} 									% unites {cmap} and utf-8 math copy; failing? \usepackage[resetfonts]{cmap}
+\usepackage{mmap} 									% unites {cmap} and utf-8 math copy; failing? \usepackage[resetfonts]{cmap}; Disbaled the [noTeX] option by default due to issues on Tectonic
 \usepackage[utf8]{inputenc}									% Another option: [latin9]
 \usepackage[nomath]{lmodern}								% Makes sure modern latin font family font is used, perhaps not needed on math mode; must be loaded before fontenc; [nomath] for compatibility with {mmap}
 \usepackage[T1]{fontenc}									% Sets the right font encoding
