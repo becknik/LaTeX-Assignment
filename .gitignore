@@ -5,6 +5,11 @@ LaTeX/*.fls
 LaTeX/*.log
 LaTeX/*.synctex.gz
 LaTeX/*.out
+LaTeX/*-blx.bib
+LaTeX/*.bbl
+LaTeX/*.blg
+LaTeX/*.run.xml
+LaTeX/*.xdv
 
 # Removes local IDE project preferences
 *.idea
