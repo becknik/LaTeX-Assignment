@@ -1,0 +1,41 @@
+%% Encoding, font & language setup:
+\usepackage[noTeX]{mmap}	% For UTF-8 text marking
+\usepackage[nomath]{lmodern}	% Ensures modern latin font family; must be loaded before fontenc; [nomath] parameter for compatibility with mmap package
+\usepackage[utf8]{inputenc}		% Another nice parameter: [latin9]
+\usepackage[EU1,T1]{fontenc}	% Sets the right font encoding
+\usepackage[ngerman]{babel}
+\usepackage[style=german]{csquotes}		% Handles quotation
+
+%% Page formatting:
+\usepackage[
+    a4paper,
+    lmargin={1.5cm},
+    rmargin={1.5cm},
+    tmargin={1.5cm},
+    bmargin = {1.5cm},
+    headheight={1.5cm},
+    includeheadfoot
+]{geometry}		% Page size
+\usepackage{fancyhdr}	% Header package
+
+%% Considered useful:
+\usepackage{float}		% Sets positioning of sections witch [H] to place of occurrence instead of the next (sub)section with the [H] parameter
+\usepackage{changepage}		% Adjust left/ right side margins with \begin{adjustwidth}{24pt} ... \end{adjustwidth}
+
+%% Basic packages:
+\usepackage[unicode]{hyperref}
+\usepackage{bookmark}
+\usepackage[fixpdftex,hyperref,table,dvipsnames]{xcolor}	% Everything color-related
+\usepackage{graphicx}		% For multiple figures in one frame use package "subfig"
+\graphicspath{figures/}
+\usepackage{pdfpages}		% To include a pdf file with
+\usepackage{listings}
+\usepackage[shortlabels]{enumitem}		% Modify the numeration counter: \begin{enumerate}[i.] \item \end{enumerate}
+\usepackage{mathtools}		% Automatically loads "amsmath", "amstext" etc. automatically; [fleqn]: "Position equations at a fixed indent from the left margin rather than centered in the text column."
+\usepackage{amssymb}	% Maths symbols like $\mathbb{N,Z,R}$ etc.
+\usepackage{wasysym}	% TODO: read the docs ? used below for boxes
+\usepackage{tikz}
+%\usepackage[onehalfspacing]{setspace}
+
+%% For testing:
+\usepackage{lipsum}	    % Lorem ipsum dolor sit...

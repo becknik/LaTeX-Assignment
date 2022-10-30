@@ -1,0 +1,73 @@
+%% Setup of entities:
+% Course specific entities:
+\def \semester {Wi/SoSe 20xx}
+\def \course {CourseXY}
+\def \courseShort {cXY}
+\def \group {Gruppe 42}
+
+% Member specific entities:
+\def \memberA {GroupMemberA}
+\def \memberB {GroupMemberB}
+\def \memberC {GroupMemberC}
+%\def \memberD {GroupMemberD}
+%\def \memberE {GroupMemberE}
+%\def \memberF {GroupMemberF}
+\def \memberAMartricle {0000000}
+\def \memberBMartricle {0000001}
+\def \memberCMartricle {0000002}
+%\def \memberDMartricle {0000003}
+%\def \memberEMartricle {0000004}
+%\def \memberFMartricle {0000005}
+\def \memberAMail {st000001@stud.uni-stuttgart.de}
+\def \memberBMail {st000002@stud.uni-stuttgart.de}
+\def \memberCMail {st000003@stud.uni-stuttgart.de}
+%\def \memberDMail {st000003@stud.uni-stuttgart.de}
+%\def \memberEMail {st000004@stud.uni-stuttgart.de}
+%\def \memberFMail {st000005@stud.uni-stuttgart.de}
+
+% Counting in $\mathbb{N}_0$!
+\setcounter{page}{0}
+
+%% PDF-internal properties	-	seems to make problems...
+%\hyperrefsetup[
+%	pdftitle = {\course~Üb \workSheetNr},
+%	pdfauthor = {\memberA, \memberB, \memberC},	% \memberD, \memberE, \memberF
+%	pdfsubject = {\course},
+%	pdfkeywords = {\semester, \courseShort, \course, \group, \workSheetNr}
+%	unicode
+%]
+
+%% Sets up header and cover sheet formatting.
+\title{
+	\Huge{Übungsblatt \workSheetNr} \\
+	\Large{\course}
+}
+\author{ % TODO allign to the right edge with small margin
+	\textbf{\memberA} [\memberAMartricle]~\textit{\memberAMail} \\
+	\textbf{\memberB} [\memberBMartricle]~\textit{\memberBMail} \\
+	\textbf{\memberC} [\memberCMartricle]~\textit{\memberCMail} \\
+	%\textbf{\memberD} [\memberDMartricle]~\textit{\memberDMail} \\
+	%\textbf{\memberE} [\memberEMartricle]~\textit{\memberEMail} \\
+	%\textbf{\memberF} [\memberFMartricle]~\textit{\memberFMail} \\
+}
+\date{\today}
+
+% Configuration of the header starts here
+\pagestyle{fancy}
+\fancyhf{}
+
+\lhead{
+	\semester \\
+	\courseShort \\
+	Übungsblatt \workSheetNr
+}
+\chead{\group}
+\rhead{
+	\memberA ~|~MtNr. \memberAMartricle \\
+	\memberB ~|~MtNr. \memberBMartricle \\
+	\memberC ~|~MtNr. \memberCMartricle %\\
+	%\memberD ~|~MtNr. \memberDMartricle \\
+	%\memberE ~|~MtNr. \memberEMartricle \\
+	%\memberF ~|~MtNr. \memberFMartricle
+}
+\cfoot{\thepage}

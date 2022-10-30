@@ -1,8 +1,11 @@
-\input{./src/basic_packages.tex}
+\documentclass[11pt]{article}
+\input{./src/packages.tex}
+
+\def \workSheetNr {XX} %TODO
+
+\input{./src/setup.tex}
 \input{./src/commands.tex}
-\input{./src/entities.tex}
-\def \workSheet {Übungsblatt XX} %TODO
-\input{./src/header.tex}
+
 
 \begin{document}
 	\maketitle
@@ -13,6 +16,8 @@
 
 \end{document}
 
+	% \textcolor{red}{text} to dye whole text blocks
+	% \colorbox[red]{text in a box}\includepdf[pages={4,9}]{./pdf/filename.pdf} (who does that?)
 
 %% Nice packages for useful symbols:
 % To check your LaTeX ToDo-list: \check, {wasysymb} checked
