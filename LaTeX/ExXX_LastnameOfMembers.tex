@@ -17,61 +17,24 @@
 
 \end{document}
 
-	% \textcolor{red}{text} to dye whole text blocks
-	% \colorbox[red]{text in a box}\includepdf[pages={4,9}]{./pdf/filename.pdf} (who does that?)
-
-%% Nice packages for useful symbols:
-% To check your LaTeX ToDo-list: \check, {wasysymb} checked
-% \usepackage{marvosym}		% To make use of the LIGHTNING symbol! / {stmaryrd} $\lightning$
-% \usepackage{halloweenmath}	% If you want somebody to understand somethings not working: $\(big)skull$
-% \usepackage{fontawesome5}	% To highlight something spicy \faPepperHot
-% Explore this one even further :)
-
-% Arrows and triangles: $\(R/r)ightarrow$ $\rightleftharpoons$ $\Leftrightarrow$ $\triangleright$ $\leadsto$ $\blacktriangleright$
-% Box stuff: $\boxtimes$ $\boxempty$ {wasysym} \CheckedBox \Square \XBox (uff)
-%\usepackage{upgreek}		% Nice looking Greek alphabet $\updelta$
-% To want to swag your PDA up: \textdollaroldstyle
-% For a AVL-tree rotation/ to display the state of thinking: $\circlearrowright$
-
-%% Nice packages for stupid symbols:
-% Just beautiful: $\ast$ $\bigstar$ $\bigvarstar$ $\divideontimes$ ({mathabx} $\blackdiamond$ $\Asterisk$ $\convolution$)
-% If you want to crucify your equation: \dag
-% If maths isn't scary enough: {halloweenmath} $\math(right/left/)ghost$ $\(big)skull$ $\math(right/left/)bat$ $\pumpkin$ $\(reverse/)mathcloud$
-%\usepackage{keystroke}		% To display you are lost in space or you are a troll: \Ctrl\Alt\keystroke{F4}\Enter
-% Signaling your tutor he/she should better stop reading: {marvosym} \Stopsign \Biohazard \Radioactivity \Laserbeam
-% Express your feelings: {wasysym} \frownie \smiley \sun or just
-%\usepackage{tikzsymbols} 	% \Cooley \Innocey \Cat \Annoey \Laughey \Neutrey \Sadey \Sey \Sleepey \Smiley \Tongey \Winkey \Xey
-%\usepackage{recycle}		% When your solutions are even trash to you: \recycle \Recycle \RECYCLE - or just use \Recycling
-
-%\usepackage{amsthm}							% If you want to flex on someone with \begin{lem}[(lemma name) Lemma stuff] \end{lemma}
-
-%% Packages for (Pseudo-)Code:
-%\usepackage[lined,algonl,boxed]{algorithm2e}
-%\usepackage[]{algorithm}
-%\usepackage{algpseudocode}
-
-%% TiZ Libraries:
-%\usetikzlibrary{automata,positioning}
-
-
-
 %% Text Formatting:
 
-% \textbf{text}			bold text
-% \textit{text}			italics text
-% \enquote{}				Does the "" thing the right/LaTeX way
-% \quad \qquad			For line additional spacing
+% Bold text: 	\textbf{text}
+% Italics text: 	\textit{text}
+% \enquote{}
+% Vertical spacing:		\quad \qquad
 
-% \begin{enumerate}
-% 	\item
-% \end{enumerate}
+%% Enumerations:
 
-% \begin{itemize}
-% 	\item
-% \end{itemize}
+%	\begin{enumerate}
+% 		\item
+%	\end{enumerate}
 
+%	\begin{itemize}
+%		\item
+%	\end{itemize}
 
-%% Figures (png, jpg, pdf,...) from external files:
+%% Figures (png, jpg, pdf,...):
 
 % \begin{figure} [H]
 %	\centering
@@ -80,11 +43,38 @@
 % 	\label{figureX}
 % \end{figure}
 
+%% Coloring:
+
+% Text:	\textcolor{red}{text} to
+% Text blocks: \colorbox[red]{text in a box}
+
+%% Nice packages for useful symbols:
+% \usepackage{marvosym}		% To make use of the LIGHTNING symbol! {stmaryrd} $\lightning$
+% \usepackage{halloweenmath}	% When somethings not working: $\(big)skull$
+% \usepackage{fontawesome5}		% For spicy things \faPepperHot
+% -> Explore this one even further :)
+
+% Arrows and triangles:		$\Rightarrow$ $\rightleftharpoons$ $\Leftrightarrow$ $\triangleright$ $\leadsto$ $\blacktriangleright$ $\circlearrowright$
+%\usepackage{upgreek}		% Nice looking Greek alphabet $\updelta$
+
+%% Stupid symbols:
+% Just beautiful:		$\ast$ $\bigstar$ $\bigvarstar$ $\divideontimes$ ({mathabx} $\blackdiamond$ $\Asterisk$ $\convolution$)
+% Crucify your equation:	\dag
+% If maths on its own isn't scary enough:		{halloweenmath} $\math(right/left/)ghost$ $\(big)skull$ $\math(right/left/)bat$ $\pumpkin$ $\(reverse/)mathcloud$
+%\usepackage{keystroke}		% To display you are lost in space or you are a troll: \Ctrl\Alt\keystroke{F4}\Enter
+% Signaling to stop reading:	{marvosym} \Stopsign \Biohazard \Radioactivity \Laserbeam
+% Express your feelings:	{wasysym} \frownie \smiley \sun or just
+%\usepackage{tikzsymbols} 		% \Cooley \Innocey \Cat \Annoey \Laughey \Neutrey \Sadey \Sey \Sleepey \Smiley \Tongey \Winkey \Xey
+%\usepackage{recycle}		% If your solutions are even trash to you: \recycle \Recycle \RECYCLE - or just use \Recycling
+
+%% Packages for (Pseudo-)Code:
+%\usepackage[lined,algonl,boxed]{algorithm2e}
+%\usepackage[]{algorithm}
+%\usepackage{algpseudocode}
 
 %% Source code form external files:
 
 % \lstinputlisting[language=java, firstline=37, lastline=45]{./files/codefile.*}
-
 
 %TODO somehow places font in the middle
 %% Source/ pseudo code within the document:
@@ -97,7 +87,6 @@
 % 	Write('Case insensitive ');
 % 	Write('Pascal keywords.');
 % \end{lstlisting}
-
 
 %% Pseudo Code:
 
@@ -117,6 +106,27 @@
 % \end{algorithm}
 
 
+%% Simple Matrix:
+
+% \begin{figure} [H]
+% 	\centering
+
+% 	\[
+% 	\begin{pmatrix}
+% 		1 & 2 & 3 & 4 \\
+% 		42 & 3 & 99 & 13
+% 	\end{pmatrix}
+% 	\]
+
+% 	\caption{A Matrix}
+% 	\label{matrixX}
+% \end{figure}
+
+
+%% TiZ Libraries:
+%\usetikzlibrary{automata,positioning}
+
+
 %% Simple Array:
 
 % \begin{figure} [H]
@@ -132,23 +142,6 @@
 
 % 	\caption{An array}
 % 	\label{arrayX}
-% \end{figure}
-
-
-%% Simple Matrix:
-
-% \begin{figure} [H]
-% 	\centering
-
-% 	\[
-% 	\begin{pmatrix}
-% 		1 & 2 & 3 & 4 \\
-% 		42 & 3 & 99 & 13
-% 	\end{pmatrix}
-% 	\]
-
-% 	\caption{A Matrix}
-% 	\label{matrixX}
 % \end{figure}
 
 
